@@ -807,16 +807,16 @@
 .mintlifyPatternWrapper {
   position: absolute;
   top: 0;
-  right: -25px; /* Adjust this as needed */
-  overflow: hidden; /* Prevent overflow if needed */
-  width: 700px; /* Set the desired width */
-  height: 600px; /* Set the desired height */
+  right: -25px;
+  overflow: hidden;
+  width: 700px;
+  height: 600px;
 }
 
 .mintlifyPatternWrapper img {
-  width: 100%; /* Make the image fill the width of the wrapper */
-  height: 100%; /* Make the image fill the height of the wrapper */
-  object-fit: cover; /* This will ensure the image covers the wrapper without distortion */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .mintlifyPattern {
@@ -847,7 +847,7 @@
   }
 
   .mintlifyFileName {
-    color: #0d9373;
+    color: #faa619;
   }
 
   .mintlifyLanguage {

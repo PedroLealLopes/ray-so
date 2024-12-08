@@ -20,6 +20,7 @@ import beams from "../assets/tailwind/beams.png";
 
 import clerkPattern from "../assets/clerk/pattern.svg?url";
 
+import VoidLogoDark from "../assets/Void_monogram_black.svg";
 import VoidLogo from "../assets/Void_monogram_white.svg";
 
 const VercelFrame = () => {
@@ -197,9 +198,7 @@ const MintlifyFrame = () => {
               />
               {fileName.length === 0 ? <span>Untitled-1</span> : null}
             </div>
-            <div style={{ padding: "0 10px 0 0" }}>
-              <VoidLogo />
-            </div>
+            <div style={{ padding: "0 10px 0 0" }}>{darkMode ? <VoidLogo /> : <VoidLogoDark />}</div>
           </>
         </div>
         <Editor />
