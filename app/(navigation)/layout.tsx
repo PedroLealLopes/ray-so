@@ -1,7 +1,6 @@
-import { Fira_Code, IBM_Plex_Mono, JetBrains_Mono } from "next/font/google";
 import cn from "classnames";
-import { Navigation } from "@/components/navigation";
 import { GeistMono } from "geist/font/mono";
+import { Fira_Code, IBM_Plex_Mono, JetBrains_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import React from "react";
 
@@ -40,7 +39,7 @@ export default function NavigationLayout({ children }: { children: React.ReactNo
         } as React.CSSProperties
       }
     >
-      <Navigation />
+      {/* <Navigation /> */}
       <main className="flex flex-col min-h-full pt-[50px]">{children}</main>
     </div>
   );

@@ -1,26 +1,20 @@
-import React, { MouseEventHandler, useContext, useState } from "react";
 import { track } from "@vercel/analytics";
+import React, { MouseEventHandler, useContext, useState } from "react";
 
-import ImageIcon from "../assets/icons/image-16.svg";
-import LinkIcon from "../assets/icons/link-16.svg";
+import ArrowsExpandingIcon from "../assets/icons/arrows-expanding-16.svg";
 import ChevronDownIcon from "../assets/icons/chevron-down-16.svg";
 import ClipboardIcon from "../assets/icons/clipboard-16.svg";
-import ArrowsExpandingIcon from "../assets/icons/arrows-expanding-16.svg";
+import ImageIcon from "../assets/icons/image-16.svg";
+import LinkIcon from "../assets/icons/link-16.svg";
 
+import { toBlob, toPng, toSvg } from "../lib/image";
+import { fileNameAtom } from "../store";
 import { FrameContext } from "../store/FrameContextStore";
 import { derivedFlashMessageAtom, flashShownAtom } from "../store/flash";
-import { fileNameAtom } from "../store";
 import download from "../util/download";
-import { toPng, toSvg, toBlob } from "../lib/image";
 
-import useHotkeys from "../../../../utils/useHotkeys";
-import usePngClipboardSupported from "../util/usePngClipboardSupported";
-import { useAtom, useAtomValue } from "jotai";
-import { EXPORT_SIZE_OPTIONS, SIZE_LABELS, exportSizeAtom } from "../store/image";
-import { autoDetectLanguageAtom, selectedLanguageAtom } from "../store/code";
-import { LANGUAGES } from "../util/languages";
-import { ButtonGroup } from "@/components/button-group";
 import { Button } from "@/components/button";
+import { ButtonGroup } from "@/components/button-group";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,8 +27,14 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/dropdown-menu";
-import { DownloadIcon } from "@raycast/icons";
 import { Kbd, Kbds } from "@/components/kbd";
+import { DownloadIcon } from "@raycast/icons";
+import { useAtom, useAtomValue } from "jotai";
+import useHotkeys from "../../../../utils/useHotkeys";
+import { autoDetectLanguageAtom, selectedLanguageAtom } from "../store/code";
+import { EXPORT_SIZE_OPTIONS, SIZE_LABELS, exportSizeAtom } from "../store/image";
+import { LANGUAGES } from "../util/languages";
+import usePngClipboardSupported from "../util/usePngClipboardSupported";
 
 const ExportButton: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -70,18 +70,16 @@ const ExportButton: React.FC = () => {
       throw new Error("Couldn't find a frame to export");
     }
 
-    const clipboardItem = new ClipboardItem(
-      {
-        "image/png": toBlob(frameContext.current, {
-          pixelRatio: exportSize,
-        }).then((blob) => {
-            if (!blob) {
-              throw new Error("expected toBlob to return a blob");
-            }
-            return blob;
-        }),
-      }
-    );
+    const clipboardItem = new ClipboardItem({
+      "image/png": toBlob(frameContext.current, {
+        pixelRatio: exportSize,
+      }).then((blob) => {
+        if (!blob) {
+          throw new Error("expected toBlob to return a blob");
+        }
+        return blob;
+      }),
+    });
 
     await navigator.clipboard.write([clipboardItem]);
 

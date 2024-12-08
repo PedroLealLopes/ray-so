@@ -12,14 +12,15 @@ import Editor from "./Editor";
 import FlashMessage from "./FlashMessage";
 import ResizableFrame from "./ResizableFrame";
 
-import styles from "./Frame.module.css";
 import { selectedLanguageAtom } from "../store/code";
+import styles from "./Frame.module.css";
 
+import voidBackgroundImage from "../assets/space-bg.png";
 import beams from "../assets/tailwind/beams.png";
-import mintlifyPatternDark from "../assets/mintlify-pattern-dark.svg?url";
-import mintlifyPatternLight from "../assets/mintlify-pattern-light.svg?url";
 
 import clerkPattern from "../assets/clerk/pattern.svg?url";
+
+import VoidLogo from "../assets/Void_monogram_white.svg";
 
 const VercelFrame = () => {
   const [darkMode] = useAtom(darkModeAtom);
@@ -179,26 +180,27 @@ const MintlifyFrame = () => {
       {!showBackground && <div data-ignore-in-export className={styles.transparentPattern}></div>}
       {showBackground && (
         <span className={styles.mintlifyPatternWrapper}>
-          <img
-            src={darkMode ? mintlifyPatternDark.src : mintlifyPatternLight.src}
-            alt=""
-            className={styles.mintlifyPattern}
-          />
+          <img src={voidBackgroundImage.src} alt="" className={styles.mintlifyPattern} />
         </span>
       )}
       <div className={styles.mintlifyWindow}>
         <div className={styles.mintlifyHeader}>
-          <div className={classNames(styles.fileName, styles.mintlifyFileName)} data-value={fileName}>
-            <input
-              type="text"
-              value={fileName}
-              onChange={(event) => setFileName(event.target.value)}
-              spellCheck={false}
-              tabIndex={-1}
-              size={1}
-            />
-            {fileName.length === 0 ? <span>Untitled-1</span> : null}
-          </div>
+          <>
+            <div className={classNames(styles.fileName, styles.mintlifyFileName)} data-value={fileName}>
+              <input
+                type="text"
+                value={fileName}
+                onChange={(event) => setFileName(event.target.value)}
+                spellCheck={false}
+                tabIndex={-1}
+                size={1}
+              />
+              {fileName.length === 0 ? <span>Untitled-1</span> : null}
+            </div>
+            <div style={{ padding: "0 10px 0 0" }}>
+              <VoidLogo />
+            </div>
+          </>
         </div>
         <Editor />
       </div>
@@ -310,21 +312,8 @@ const Frame = ({ resize = true }: { resize?: boolean }) => {
 
   function renderFrame() {
     switch (theme.id) {
-      case THEMES.vercel.id:
-      case THEMES.rabbit.id:
-        return <VercelFrame />;
-      case THEMES.supabase.id:
-        return <SupabaseFrame />;
-      case THEMES.tailwind.id:
-        return <TailwindFrame />;
-      case THEMES.clerk.id:
-        return <ClerkFrame />;
-      case THEMES.mintlify.id:
+      case THEMES.void.id:
         return <MintlifyFrame />;
-      case THEMES.openai.id:
-        return <OpenAIFrame />;
-      case THEMES.prisma.id:
-        return <PrismaFrame />;
       default:
         return <DefaultFrame />;
     }
